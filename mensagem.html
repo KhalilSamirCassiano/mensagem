@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite Romântico</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        .convite {
+            background-color: #ffcccb;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+            z-index: 1;
+        }
+        .convite:hover {
+            transform: scale(1.05);
+        }
+        .carta {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            padding: 20px;
+            z-index: 2;
+            text-align: center;
+            animation: abrir 1s forwards;
+        }
+        @keyframes abrir {
+            from {
+                transform: translate(-50%, -50%) scale(0);
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        .coracao {
+            position: absolute;
+            font-size: 20px;
+            color: #ff69b4;
+            animation: flutuar 3s forwards;
+        }
+        @keyframes flutuar {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="convite" onclick="abrirConvite()">
+    <div class="coracao" style="font-size: 50px; color: #ff69b4;">❤️</div>
+    <h2>Convite Especial</h2>
+    <p>Clique aqui para ver a mensagem!</p>
+</div>
+
+<div class="carta" id="carta">
+    <h2>Você recebeu uma carta!</h2>
+    <p>Eu te amo!</p>
+</div>
+
+<script>
+    function abrirConvite() {
+        document.getElementById('carta').style.display = 'block';
+        criarCoracoes();
+    }
+
+    function criarCoracoes() {
+        const body = document.body;
+        const numCoracoes = 30; // Número de corações a serem exibidos
+
+        for (let i = 0; i < numCoracoes; i++) {
+            const coracao = document.createElement('div');
+            coracao.classList.add('coracao');
+            coracao.innerHTML = '❤️';
+            coracao.style.left = Math.random() * 100 + 'vw'; // Posição horizontal aleatória
+            coracao.style.animationDelay = Math.random() * 2 + 's'; // Atraso aleatório na animação
+            body.appendChild(coracao);
+
+            // Remover o coração após a animação
+            coracao.addEventListener('animationend', () => {
+                coracao.remove();
+            });
+        }
+    }
+</script>
+
+</body>
+</html>
